@@ -1,14 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {NavBar} from '../../components';
 
 export const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <NavBar
+        title="Todo App"
+        rightIcon="plus-circle"
+        onRightPress={() => {}}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
 });
