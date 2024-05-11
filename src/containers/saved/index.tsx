@@ -4,50 +4,23 @@ import {NavBar} from '../../components';
 import {ItemCardComponent} from '../../components';
 import {Divider} from 'react-native-paper';
 import {ItemModel, todoList, themes} from '../../core';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export const HomeScreen = () => {
-  const navigationKey = 'homeKey';
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-
+export const SavedScreen = () => {
   const renderDivider = () => {
     return <Divider style={styles.divider} />;
   };
 
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
-    return (
-      <ItemCardComponent
-        item={item}
-        onPress={() => {
-          navigation.navigate({
-            name: 'ItemDetail',
-            params: {
-              item,
-            },
-          });
-        }}
-      />
-    );
+    return <ItemCardComponent item={item} />;
   };
 
   return (
     <View style={styles.container}>
-      <NavBar
-        title="Todo App"
-        rightIcon="plus-circle"
-        onRightPress={() => {
-          navigation.navigate({
-            key: navigationKey,
-            name: 'CreateItem',
-            params: {},
-          });
-        }}
-      />
+      <NavBar title="Saved" />
 
       <FlatList
-        data={todoList}
-        extraData={todoList}
+        data={todoList.filter(item => item.isLiked)}
+        extraData={todoList.filter(item => item.isLiked)}
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={renderItem}
         ItemSeparatorComponent={renderDivider}

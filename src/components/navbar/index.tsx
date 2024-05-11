@@ -2,10 +2,12 @@ import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {themes} from '../../core';
 
 interface Props {
   title?: string;
   rightIcon?: string;
+  isRightIconActive?: boolean;
 
   onBackPress?: () => void;
   onRightPress?: () => void;
@@ -17,7 +19,17 @@ export const NavBar = (props: Props) => {
       return null;
     }
 
-    return <Icon size={24} name={name} />;
+    return (
+      <Icon
+        size={24}
+        name={name}
+        color={
+          props.isRightIconActive
+            ? themes.appTheme.like
+            : themes.appTheme['bg-secondary']
+        }
+      />
+    );
   };
 
   const renderBackComponent = () => {
@@ -69,9 +81,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontWeight: '700',
     fontSize: 20,
+    color: themes.appTheme['bg-secondary'],
   },
   leftIconAction: {
     marginLeft: 0,
+    marginRight: 12,
     width: 24,
     height: 24,
   },

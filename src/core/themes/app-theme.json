@@ -1,10 +1,13 @@
 {
   "primary": "#8043CC",
   "secondary": "#DAC9F0",
+  "danger": "#CF2E2E",
+  "like": "#FCB900",
 
   "text-main": "#2D3039",
 
   "bg-secondary": "#FFFFFF",
   "bg-secondary-2": "#F8F8FB",
-  "bg-secondary-3": "#F4EFFB"
+  "bg-secondary-3": "#F4EFFB",
+  "bg-secondary-4": "#0693E3"
 }
