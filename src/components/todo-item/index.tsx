@@ -11,6 +11,7 @@ import {Button} from '../button';
 
 interface Props extends TouchableOpacityProps {
   item: ItemModel;
+  onLikePress: (item: ItemModel) => void;
 }
 
 export const ItemCardComponent = (props: Props) => {
@@ -27,6 +28,7 @@ export const ItemCardComponent = (props: Props) => {
             style={styles.likeBtn}
             icon="star"
             isActive={props.item.isLiked}
+            onPress={() => props.onLikePress(props.item)}
           />
         </View>
       </View>

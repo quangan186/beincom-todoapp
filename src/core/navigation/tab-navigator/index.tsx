@@ -18,8 +18,10 @@ export const TabNavigator = () => {
     );
   };
 
-  const renderTitle = (focused: boolean) => {
-    return <Text style={[styles.title, focused && styles.active]}>Home</Text>;
+  const renderTitle = (focused: boolean, title: string) => {
+    return (
+      <Text style={[styles.title, focused && styles.active]}>{title}</Text>
+    );
   };
 
   return (
@@ -32,7 +34,7 @@ export const TabNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({focused}) => renderIcon(focused, 'home'),
-          tabBarLabel: ({focused}) => renderTitle(focused),
+          tabBarLabel: ({focused}) => renderTitle(focused, 'Home'),
         }}
       />
       <Main.Screen
@@ -40,7 +42,7 @@ export const TabNavigator = () => {
         component={SavedScreen}
         options={{
           tabBarIcon: ({focused}) => renderIcon(focused, 'checklist'),
-          tabBarLabel: ({focused}) => renderTitle(focused),
+          tabBarLabel: ({focused}) => renderTitle(focused, 'Saved'),
         }}
       />
     </Main.Navigator>

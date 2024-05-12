@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {TabNavigator} from '../tab-navigator';
 import {CreateItemScreen, ItemDetailScreen} from '../../../containers';
+import {UpdateItemScreen} from '../../../containers';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export const StackNavigator = () => {
       initialRouteName="HomeScreen">
       <Stack.Screen name="HomeScreen" component={TabNavigator} />
       <Stack.Screen name="CreateItem" component={CreateItemScreen} />
+      <Stack.Screen name="UpdateItem" component={UpdateItemScreen} />
       <Stack.Screen name="ItemDetail" component={ItemDetailScreen} />
     </Stack.Navigator>
   );

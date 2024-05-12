@@ -52,10 +52,9 @@ export const Button = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignSelf: 'center',
   },
   title: {
-    color: themes.appTheme['text-main'],
+    color: themes.appTheme['bg-secondary'],
     fontSize: 16,
     fontWeight: '600',
   },

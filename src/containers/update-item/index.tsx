@@ -2,12 +2,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Input, NavBar} from '../../components';
 import {themes} from '../../core';
-import _ from 'lodash';
+import {useUpdateItem} from './hooks/use-update-item';
 import {Card} from 'react-native-paper';
-import {useCreateItem} from './hooks/use-create-item';
+import _ from 'lodash';
 
-export const CreateItemScreen = () => {
-  const state = useCreateItem();
+export const UpdateItemScreen = () => {
+  const state = useUpdateItem();
 
   const renderError = () => {
     if (_.isEmpty(state.formData.titleErr)) {
@@ -19,7 +19,7 @@ export const CreateItemScreen = () => {
 
   return (
     <View style={styles.container}>
-      <NavBar title="Create Plan" onBackPress={state.onBackPress} />
+      <NavBar title="Update Plan" onBackPress={state.onBackPress} />
       <Card style={styles.content}>
         <Input
           title={'Title'}
@@ -30,13 +30,14 @@ export const CreateItemScreen = () => {
           required
         />
         {renderError()}
+
         <Input
           title={'Description'}
           value={state.formData.description}
           onDataChanged={state.onDescriptionChange}
           placeholder="Enter the description"
-          multiline
           style={styles.descriptionWrapper}
+          multiline
         />
         <Button title="Create" style={styles.btn} onPress={state.onSubmit} />
       </Card>

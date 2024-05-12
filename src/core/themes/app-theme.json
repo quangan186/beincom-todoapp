@@ -9,5 +9,7 @@
   "bg-secondary": "#FFFFFF",
   "bg-secondary-2": "#F8F8FB",
   "bg-secondary-3": "#F4EFFB",
-  "bg-secondary-4": "#0693E3"
+  "bg-secondary-4": "#0693E3",
+
+  "input-border": "#ABB8C3"
 }

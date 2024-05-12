@@ -4,6 +4,8 @@ export class ItemModel {
   createdAt: string;
   isLiked: boolean;
 
+  titleErr?: string;
+
   constructor() {
     this.title = '';
     this.description = '';

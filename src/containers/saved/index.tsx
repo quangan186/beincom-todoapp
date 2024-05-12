@@ -3,15 +3,24 @@ import React from 'react';
 import {NavBar} from '../../components';
 import {ItemCardComponent} from '../../components';
 import {Divider} from 'react-native-paper';
-import {ItemModel, todoList, themes} from '../../core';
+import {ItemModel, themes} from '../../core';
+import {useSaved} from './hooks/use-saved';
 
 export const SavedScreen = () => {
+  const state = useSaved();
+
   const renderDivider = () => {
     return <Divider style={styles.divider} />;
   };
 
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
-    return <ItemCardComponent item={item} />;
+    return (
+      <ItemCardComponent
+        item={item}
+        onPress={() => state.onItemPress(item)}
+        onLikePress={state.onLikePress}
+      />
+    );
   };
 
   return (
@@ -19,8 +28,8 @@ export const SavedScreen = () => {
       <NavBar title="Saved" />
 
       <FlatList
-        data={todoList.filter(item => item.isLiked)}
-        extraData={todoList.filter(item => item.isLiked)}
+        data={state.todoItems}
+        extraData={state.todoItems}
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={renderItem}
         ItemSeparatorComponent={renderDivider}

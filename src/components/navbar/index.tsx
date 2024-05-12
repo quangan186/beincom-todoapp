@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const NavBar = (props: Props) => {
-  const renderIcon = (name: string | undefined) => {
+  const renderIcon = (name: string | undefined, isActive: boolean = false) => {
     if (!name) {
       return null;
     }
@@ -24,9 +24,7 @@ export const NavBar = (props: Props) => {
         size={24}
         name={name}
         color={
-          props.isRightIconActive
-            ? themes.appTheme.like
-            : themes.appTheme['bg-secondary']
+          isActive ? themes.appTheme.like : themes.appTheme['bg-secondary']
         }
       />
     );
@@ -54,7 +52,7 @@ export const NavBar = (props: Props) => {
 
     return (
       <Appbar.Action
-        icon={() => renderIcon(props.rightIcon)}
+        icon={() => renderIcon(props.rightIcon, props.isRightIconActive)}
         onPress={props.onRightPress}
         animated={false}
         style={styles.rightIconAction}

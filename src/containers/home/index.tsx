@@ -3,13 +3,11 @@ import React from 'react';
 import {NavBar} from '../../components';
 import {ItemCardComponent} from '../../components';
 import {Divider} from 'react-native-paper';
-import {ItemModel, todoList, themes} from '../../core';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ItemModel, themes} from '../../core';
+import {useHome} from './hooks/use-home';
 
 export const HomeScreen = () => {
-  const navigationKey = 'homeKey';
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const state = useHome();
 
   const renderDivider = () => {
     return <Divider style={styles.divider} />;
@@ -19,14 +17,8 @@ export const HomeScreen = () => {
     return (
       <ItemCardComponent
         item={item}
-        onPress={() => {
-          navigation.navigate({
-            name: 'ItemDetail',
-            params: {
-              item,
-            },
-          });
-        }}
+        onPress={() => state.onItemPress(item)}
+        onLikePress={state.onLikePress}
       />
     );
   };
@@ -36,18 +28,12 @@ export const HomeScreen = () => {
       <NavBar
         title="Todo App"
         rightIcon="plus-circle"
-        onRightPress={() => {
-          navigation.navigate({
-            key: navigationKey,
-            name: 'CreateItem',
-            params: {},
-          });
-        }}
+        onRightPress={state.onCreateItemPress}
       />
 
       <FlatList
-        data={todoList}
-        extraData={todoList}
+        data={state.todoItems}
+        extraData={state.todoItems}
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={renderItem}
         ItemSeparatorComponent={renderDivider}

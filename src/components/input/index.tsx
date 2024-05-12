@@ -52,7 +52,7 @@ export const Input = (props: Props) => {
     <View style={[styles.container, props.style]}>
       <Text style={styles.title}>
         {props.title}
-        {props.required && <Text>{' *'}</Text>}
+        {props.required && <Text style={styles.required}>{' *'}</Text>}
       </Text>
       <View
         style={[
@@ -66,7 +66,7 @@ export const Input = (props: Props) => {
           value={props.value}
           onChangeText={props.onDataChanged}
           placeholder={props.placeholder}
-          placeholderTextColor={themes.appTheme['text-hint']}
+          placeholderTextColor={themes.appTheme['input-border']}
           secureTextEntry={secure}
           multiline={props.multiline}
         />
@@ -86,13 +86,14 @@ const getStyle = (multiline: boolean) => {
       marginTop: 12,
       borderRadius: 4,
       borderWidth: 1,
-      borderColor: 'transparent',
+      borderColor: themes.appTheme['input-border'],
       backgroundColor: themes.appTheme['bg-secondary'],
       textAlignVertical: 'top',
       paddingTop: multiline ? 12 : 0,
     },
     input: {
       padding: 0,
+      color: themes.appTheme['text-main'],
     },
     inputWithSecure: {
       paddingRight: 40,
@@ -103,9 +104,12 @@ const getStyle = (multiline: boolean) => {
       right: 12,
     },
     title: {
-      color: themes.appTheme['bg-secondary-2'],
+      color: themes.appTheme.primary,
       fontSize: 20,
       fontWeight: '600',
+    },
+    required: {
+      color: themes.appTheme.danger,
     },
   });
 };

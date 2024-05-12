@@ -1,11 +1,14 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {StackNavigator} from './main-navigator';
+import {PaperProvider} from 'react-native-paper';
 
 export const AppNavigator = () => {
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
