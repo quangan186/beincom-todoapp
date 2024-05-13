@@ -1,15 +1,13 @@
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ItemModel, todoList} from '../../../core';
-import {useState} from 'react';
+import {ItemModel, ToDoService} from '../../../core';
+import {useEffect, useState} from 'react';
 
 export const useSaved = () => {
   const navigationKey = 'savedKey';
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  const [todoItems, setTodoItems] = useState<ItemModel[]>(
-    todoList.filter(item => item.isLiked),
-  );
+  const [todoItems, setTodoItems] = useState<ItemModel[]>([]);
 
   const onItemPress = (item: ItemModel) => {
     navigation.navigate({
@@ -20,6 +18,23 @@ export const useSaved = () => {
       },
     });
   };
+
+  useEffect(() => {
+    const onGetData = async () => {
+      try {
+        let result = await ToDoService.shared.getPlans();
+        if (result === null) {
+          result = '[]';
+        }
+        let plans: ItemModel[] = JSON.parse(result);
+        setTodoItems(plans.filter(item => item.isLiked));
+      } catch (e) {
+        console.error('Failed to fetch or initialize plans:', e);
+      }
+    };
+
+    onGetData();
+  }, [todoItems]);
 
   const onLikePress = (item: ItemModel) => {
     const selectedItem: ItemModel = {...item, isLiked: !item.isLiked};

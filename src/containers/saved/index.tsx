@@ -1,4 +1,4 @@
-import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
+import {FlatList, ListRenderItem, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {NavBar} from '../../components';
 import {ItemCardComponent} from '../../components';
@@ -8,6 +8,12 @@ import {useSaved} from './hooks/use-saved';
 
 export const SavedScreen = () => {
   const state = useSaved();
+
+  const renderEmptyComponent = () => {
+    return (
+      <Text style={styles.emptyTitle}>You haven't saved any plans yet!</Text>
+    );
+  };
 
   const renderDivider = () => {
     return <Divider style={styles.divider} />;
@@ -32,8 +38,8 @@ export const SavedScreen = () => {
         extraData={state.todoItems}
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={renderItem}
+        ListEmptyComponent={renderEmptyComponent()}
         ItemSeparatorComponent={renderDivider}
-        style={styles.flatList}
         contentContainerStyle={styles.flatListContent}
       />
     </View>
@@ -45,7 +51,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themes.appTheme.primary,
   },
-  flatList: {},
+  emptyTitle: {
+    color: themes.appTheme['bg-secondary'],
+    fontSize: 24,
+  },
   flatListContent: {
     paddingHorizontal: 12,
     paddingBottom: 16,

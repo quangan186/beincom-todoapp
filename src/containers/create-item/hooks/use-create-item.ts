@@ -1,7 +1,7 @@
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useState} from 'react';
-import {ItemModel} from '../../../core';
+import {ItemModel, ToDoService} from '../../../core';
 
 export const useCreateItem = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -15,7 +15,7 @@ export const useCreateItem = () => {
     setFormData({...formData, description: value || ''});
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!formData.title.trim()) {
       setFormData(prev => ({
         ...prev,
@@ -24,8 +24,29 @@ export const useCreateItem = () => {
       return;
     }
 
-    const data: ItemModel = {...formData, createdAt: new Date().toISOString()};
-    console.log(data);
+    let result = await ToDoService.shared.getPlans();
+    if (result === null) {
+      result = '[]';
+    }
+
+    let plans: ItemModel[] = JSON.parse(result);
+    let data: ItemModel;
+
+    if (plans.length === 0) {
+      data = {
+        ...formData,
+        createdAt: new Date().toISOString(),
+        id: `${plans.length + 1}`,
+      };
+    }
+    data = {
+      ...formData,
+      createdAt: new Date().toISOString(),
+      id: `${Number(plans[plans.length - 1].id) + 1}`,
+    };
+
+    const updatedItems = [...plans, data];
+    await ToDoService.shared.setPlans(updatedItems);
   };
 
   const onBackPress = () => {

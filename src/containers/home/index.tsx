@@ -1,4 +1,4 @@
-import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
+import {FlatList, ListRenderItem, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {NavBar} from '../../components';
 import {ItemCardComponent} from '../../components';
@@ -11,6 +11,12 @@ export const HomeScreen = () => {
 
   const renderDivider = () => {
     return <Divider style={styles.divider} />;
+  };
+
+  const renderEmptyComponent = () => {
+    return (
+      <Text style={styles.emptyTitle}>Let's add first plan to your list</Text>
+    );
   };
 
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
@@ -37,7 +43,7 @@ export const HomeScreen = () => {
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={renderItem}
         ItemSeparatorComponent={renderDivider}
-        style={styles.flatList}
+        ListEmptyComponent={renderEmptyComponent()}
         contentContainerStyle={styles.flatListContent}
       />
     </View>
@@ -49,7 +55,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themes.appTheme.primary,
   },
-  flatList: {},
+  emptyTitle: {
+    color: themes.appTheme['bg-secondary'],
+    fontSize: 24,
+  },
   flatListContent: {
     paddingHorizontal: 12,
     paddingBottom: 16,

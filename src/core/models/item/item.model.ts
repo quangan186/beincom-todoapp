@@ -1,4 +1,5 @@
 export class ItemModel {
+  id: string;
   title: string;
   description: string;
   createdAt: string;
@@ -7,6 +8,7 @@ export class ItemModel {
   titleErr?: string;
 
   constructor() {
+    this.id = '';
     this.title = '';
     this.description = '';
     this.createdAt = '';
