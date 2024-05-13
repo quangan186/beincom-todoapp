@@ -1,6 +1,6 @@
 import {ParamListBase, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ItemModel} from '../../../core';
+import {ItemModel, ToDoService} from '../../../core';
 import {useState} from 'react';
 
 interface RouteParams {
@@ -20,8 +20,20 @@ export const useItemDetail = () => {
     navigation.goBack();
   };
 
-  const onLikePress = () => {
-    setPlan({...plan, isLiked: !plan.isLiked});
+  const onLikePress = async () => {
+    const selectedItem: ItemModel = {...plan, isLiked: !plan.isLiked};
+    setPlan(selectedItem);
+    const result = await ToDoService.shared.getPlans();
+    const plans: ItemModel[] = JSON.parse(result!);
+
+    const itemIndex = plans.findIndex(i => i.id === selectedItem.id);
+
+    const updatedItems = [
+      ...plans.slice(0, itemIndex),
+      selectedItem,
+      ...plans.slice(itemIndex + 1),
+    ];
+    await ToDoService.shared.setPlans(updatedItems);
   };
 
   const onEditBtnPress = () => {
@@ -34,6 +46,15 @@ export const useItemDetail = () => {
     });
   };
 
+  const onDeletePress = async () => {
+    const result = await ToDoService.shared.getPlans();
+    const updatedList: ItemModel[] = JSON.parse(result!).filter(
+      (item: ItemModel) => item.id !== plan.id,
+    );
+    await ToDoService.shared.setPlans(updatedList);
+    navigation.goBack();
+  };
+
   return {
     onBackPress,
     onEditBtnPress,
@@ -41,5 +62,6 @@ export const useItemDetail = () => {
     plan,
     isVisible,
     setIsVisible,
+    onDeletePress,
   };
 };

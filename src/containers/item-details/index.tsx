@@ -44,9 +44,7 @@ export const ItemDetailScreen = () => {
         isVisible={state.isVisible}
         setIsVisible={state.setIsVisible}
         onCancel={() => state.setIsVisible(false)}
-        onDelete={() => {
-          state.setIsVisible(false);
-        }}
+        onDelete={state.onDeletePress}
       />
     </ScrollView>
   );
