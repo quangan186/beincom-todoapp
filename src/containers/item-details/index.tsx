@@ -67,9 +67,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 24,
     fontWeight: '600',
+    color: themes.appTheme['text-main'],
   },
   description: {
     fontSize: 16,
+    color: themes.appTheme['text-main'],
     marginTop: 16,
   },
   editBtn: {
@@ -92,5 +94,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     padding: 12,
     marginBottom: 16,
+    backgroundColor: themes.appTheme['bg-secondary'],
   },
 });

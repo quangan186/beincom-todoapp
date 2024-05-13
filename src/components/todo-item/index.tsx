@@ -64,15 +64,12 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 24,
     fontWeight: '600',
+    color: themes.appTheme['text-main'],
   },
   description: {
     fontSize: 16,
+    color: themes.appTheme['text-main'],
   },
-  //   editBtn: {
-  //     padding: 8,
-  //     backgroundColor: themes.appTheme['bg-secondary'],
-  //     borderRadius: 8,
-  //   },
   likeBtn: {
     padding: 8,
     backgroundColor: themes.appTheme.primary,

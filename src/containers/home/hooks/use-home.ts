@@ -33,8 +33,10 @@ export const useHome = () => {
       }
     };
 
-    onGetData();
-  }, [todoItems]);
+    const unsubscribe = navigation.addListener('focus', onGetData);
+
+    return unsubscribe;
+  }, [navigation, todoItems]);
 
   const onLikePress = async (item: ItemModel) => {
     const selectedItem: ItemModel = {...item, isLiked: !item.isLiked};
