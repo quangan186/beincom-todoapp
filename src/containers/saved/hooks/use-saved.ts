@@ -27,7 +27,7 @@ export const useSaved = () => {
           result = '[]';
         }
         let plans: ItemModel[] = JSON.parse(result);
-        setTodoItems(plans.filter(item => item.isLiked));
+        setTodoItems(plans);
       } catch (e) {
         console.error('Failed to fetch or initialize plans:', e);
       }
@@ -36,7 +36,7 @@ export const useSaved = () => {
     onGetData();
   }, [todoItems]);
 
-  const onLikePress = (item: ItemModel) => {
+  const onLikePress = async (item: ItemModel) => {
     const selectedItem: ItemModel = {...item, isLiked: !item.isLiked};
     const itemIndex = todoItems.findIndex(i => i.title === item.title);
 
@@ -46,7 +46,7 @@ export const useSaved = () => {
       selectedItem,
       ...todoItems.slice(itemIndex + 1),
     ];
-
+    await ToDoService.shared.setPlans(updatedItems);
     setTodoItems(updatedItems);
   };
 

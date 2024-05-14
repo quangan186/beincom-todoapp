@@ -34,8 +34,8 @@ export const SavedScreen = () => {
       <NavBar title="Saved" />
 
       <FlatList
-        data={state.todoItems}
-        extraData={state.todoItems}
+        data={state.todoItems.filter(item => item.isLiked)}
+        extraData={state.todoItems.filter(item => item.isLiked)}
         keyExtractor={(item, index) => `${item.title}-${index}`}
         renderItem={renderItem}
         ListEmptyComponent={renderEmptyComponent()}
