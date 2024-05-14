@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   content: {
     padding: 12,
     marginHorizontal: 12,
+    backgroundColor: themes.appTheme.secondary,
   },
   btn: {
     backgroundColor: themes.appTheme.primary,

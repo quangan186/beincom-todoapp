@@ -100,11 +100,13 @@ const styles = StyleSheet.create({
     marginTop: 24,
     fontSize: 20,
     fontWeight: '600',
+    color: themes.appTheme['text-main'],
   },
   desc: {
     textAlign: 'center',
     marginTop: 12,
     fontSize: 16,
+    color: themes.appTheme['text-main'],
   },
   content: {
     justifyContent: 'center',
